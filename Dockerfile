@@ -12,11 +12,11 @@ RUN poetry install --no-ansi
 FROM python:3.10-alpine
 WORKDIR /app
 
-COPY --from=builder /app /app
+COPY --from=builder /app/src /app
 ADD . /app
 
 RUN adduser app -h /app -u 1000 -g 1000 -DH
 USER 1000
 
 
-CMD /app/.venv/bin/python app/src/main.py
+CMD /app/.venv/bin/python app/main.py
