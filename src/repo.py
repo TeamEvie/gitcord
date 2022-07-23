@@ -50,7 +50,7 @@ class Repo(Cog):
 
             license_text = "No license"
             if repo_license is not None:
-                license_text = f"[{repo_license.license.name}]({repo_license.license.html_url})"
+                license_text = f"[{repo_license.license.name}]({repo_license.html_url})"
 
             about = {
                 "License": license_text,
