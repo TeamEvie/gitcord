@@ -8,7 +8,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Core handles registering commands, sync_commands should not be used.
-bot = InteractionBot(sync_commands=False)
+if os.environ.get("PROXY_URL") is not None:
+    print("Using proxy")
+    bot = InteractionBot(sync_commands=False, proxy=os.environ["PROXY_URL"])
+else:
+    print("Not using proxy")
+    bot = InteractionBot(sync_commands=False)
 
 
 @bot.event
