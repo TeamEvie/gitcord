@@ -1,11 +1,12 @@
+from __main__ import github
+
 import disnake
 from disnake import CommandInteraction
 from disnake.ext.commands import Cog, Bot
 from github import GithubException
 
-from main import github
-from src.enums import Emojis, Colors
-from src.gitstance import gh_instance
+from .enums import Emojis, Colors
+from .gitstance import gh_instance
 
 
 class Repo(Cog):

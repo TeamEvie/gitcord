@@ -3,9 +3,6 @@ import traceback
 
 from disnake import CommandInteraction
 from disnake.ext.commands import InteractionBot
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # Core handles registering commands, sync_commands should not be used.
 if os.environ.get("PROXY_URL") is not None:
@@ -39,6 +36,6 @@ async def on_error(
 
 bot.on_slash_command_error = lambda inter, exception: on_error(inter, exception)
 
-bot.load_extension("repo")
+bot.load_extension("gitget.repo")
 
 bot.run(os.environ["DISCORD_TOKEN"])
