@@ -19,4 +19,4 @@ RUN adduser app -h /src -u 1000 -g 1000 -DH
 USER 1000
 
 
-CMD /app/.venv/bin/python ./main.py
+CMD /src/.venv/bin/python ./main.py
