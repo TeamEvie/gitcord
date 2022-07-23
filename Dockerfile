@@ -1,20 +1,22 @@
-FROM python:3.10-slim
+FROM python:3.10-alpine AS builder
+WORKDIR /app
+ADD pyproject.toml poetry.lock /app/
 
-# Create the working directory
+RUN apk add build-base libffi-dev
+RUN pip install poetry
+RUN poetry config virtualenvs.in-project true
+RUN poetry install --no-ansi
+
+# ---
+
+FROM python:3.10-alpine
 WORKDIR /app
 
-# Install dependencies
-ENV PIP_NO_CACHE_DIR=false
+COPY --from=builder /app /app
+ADD . /app
 
-RUN pip install -U pip wheel setuptools
-RUN pip install poetry==1.1.13
+RUN adduser app -h /app -u 1000 -g 1000 -DH
+USER 1000
 
-COPY pyproject.toml poetry.lock ./
-RUN poetry export --without-hashes > requirements.txt
-RUN pip uninstall poetry -y
-RUN pip install -Ur requirements.txt
 
-COPY . .
-RUN pip install . --no-deps
-
-ENTRYPOINT ["python3", "src/main.py"]
+CMD /app/.venv/bin/python src/main.py
