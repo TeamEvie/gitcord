@@ -4,7 +4,7 @@ from disnake.ext.commands import Cog, Bot
 from github import GithubException
 
 from main import github
-from src.emojis import Emojis
+from src.enums import Emojis, Colors
 from src.gitstance import gh_instance
 
 
@@ -44,6 +44,7 @@ class Repo(Cog):
                 url=repo.html_url,
                 description=description,
                 timestamp=repo.updated_at,
+                colour=Colors.DARK_MODE_BLEND.value
             )
 
             embed.set_footer(text="Last updated")
