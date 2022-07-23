@@ -5,7 +5,10 @@ from disnake import CommandInteraction
 from disnake.ext.commands import InteractionBot
 
 # Core handles registering commands, sync_commands should not be used.
-if os.environ.get("PROXY_URL") is not None:
+
+proxy_on = os.environ.get("PROXY_URL") is not None
+
+if proxy_on:
     print("Using proxy")
     bot = InteractionBot(sync_commands=False, proxy=os.environ["PROXY_URL"])
 else:
@@ -38,4 +41,7 @@ bot.on_slash_command_error = lambda inter, exception: on_error(inter, exception)
 
 bot.load_extension("gitget.repo")
 
-bot.run(os.environ["DISCORD_TOKEN"])
+if proxy_on:
+    bot.run("token")
+else:
+    bot.run(os.environ["DISCORD_TOKEN"])
