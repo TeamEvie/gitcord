@@ -11,7 +11,6 @@ proxy_on = os.environ.get("REST_PROXY") is not None
 
 if proxy_on:
     http.Route.BASE = os.environ.get("REST_PROXY")
-    http.HTTPClient.get_gateway = lambda: os.environ.get("GATEWAY_PROXY")
     print("Using proxy")
 else:
     print("Not using proxy")
