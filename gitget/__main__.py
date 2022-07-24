@@ -10,7 +10,8 @@ from disnake.ext.commands import InteractionBot
 proxy_on = os.environ.get("PROXY_URL") is not None
 
 if proxy_on:
-    http.Route.BASE = os.environ.get("PROXY_URL")
+    http.Route.BASE = os.environ.get("REST_PROXY")
+    http.HTTPClient.get_gateway = lambda: os.environ.get("GATEWAY_PROXY")
     print("Using proxy")
 else:
     print("Not using proxy")
@@ -21,6 +22,8 @@ bot = InteractionBot(sync_commands=False)
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user.name}")
+    print(f"Gateway: {await bot.http.get_gateway()}")
+    print(f"Base: {http.Route.BASE}")
 
 
 @bot.slash_command(
