@@ -1,6 +1,7 @@
 import os
 import traceback
 
+import disnake.http as http
 from disnake import CommandInteraction
 from disnake.ext.commands import InteractionBot
 
@@ -9,11 +10,12 @@ from disnake.ext.commands import InteractionBot
 proxy_on = os.environ.get("PROXY_URL") is not None
 
 if proxy_on:
+    http.Route.BASE = os.environ.get("PROXY_URL")
     print("Using proxy")
-    bot = InteractionBot(sync_commands=False, proxy=os.environ["PROXY_URL"])
 else:
     print("Not using proxy")
-    bot = InteractionBot(sync_commands=False)
+
+bot = InteractionBot(sync_commands=False)
 
 
 @bot.event
