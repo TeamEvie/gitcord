@@ -7,7 +7,7 @@ from disnake.ext.commands import InteractionBot
 
 # Core handles registering commands, sync_commands should not be used.
 
-proxy_on = os.environ.get("PROXY_URL") is not None
+proxy_on = os.environ.get("REST_PROXY") is not None
 
 if proxy_on:
     http.Route.BASE = os.environ.get("REST_PROXY")
