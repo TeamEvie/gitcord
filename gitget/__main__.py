@@ -44,6 +44,6 @@ bot.on_slash_command_error = lambda inter, exception: on_error(inter, exception)
 bot.load_extension("gitget.repo")
 
 if proxy_on:
-    bot.run()
+    bot.run(None)
 else:
     bot.run(os.environ["DISCORD_TOKEN"])
