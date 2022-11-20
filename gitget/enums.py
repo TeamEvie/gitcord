@@ -7,4 +7,8 @@ class Emojis(Enum):
 
 
 class Colors(Enum):
-    DARK_MODE_BLEND = 0x2f3136
+    DARK_MODE_BLEND = 0x2F3136
+
+
+class SupportedGitProviders(Enum):
+    GitHub = "github"
