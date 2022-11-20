@@ -1,2 +1,3 @@
-# GitGet
-> GitGet is an [EMS](https://github.com/TeamEvie/ems) for Evie that implements GitHub integration.
+# gitcord
+
+Fetch information from Git repositories inside Discord. Powered by disnake and Fly.io.
