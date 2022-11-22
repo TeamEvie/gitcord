@@ -1,28 +1,26 @@
+import json
 from datetime import datetime
 
 from disnake import Embed
 from github import GithubException
 
+from ...cache import get, set
 from ...enums import Emojis
 from ...gitstance import gh_instance
 
-cache = {}
-
 
 async def fill_embed(embed: Embed, owner: str, repo: str) -> Embed:
-    cached_entry = cache.get(f"{owner}/{repo}")
+    owner = owner.lower()
+    repo = repo.lower()
+
+    cached_entry = await get(f"{owner}/{repo}")
+
     if cached_entry is not None:
-        if (datetime.now() - cached_entry["fetchedAt"]).total_seconds() < 60 * 5:
-            return cached_entry["embed"]
+        return Embed.from_dict(json.loads(cached_entry))
 
     embed = await fetch_embed(embed, owner, repo)
 
-    cache[f"{owner}/{repo}"] = {
-        "fetchedAt": datetime.now(),
-        "owner": owner,
-        "repo": repo,
-        "embed": embed,
-    }
+    await set(f"{owner}/{repo}", json.dumps(embed.to_dict()), expire=60 * 5)
 
     return embed
 

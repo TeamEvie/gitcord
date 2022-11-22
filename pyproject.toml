@@ -8,6 +8,7 @@ authors = ["Tristan Camejo <twisttaan@icloud.com>"]
 python = "^3.10"
 disnake = "^2.7.0"
 pygithub = "^1.57"
+redis = "^4.3.4"
 
 [tool.poetry.dev-dependencies]
 
